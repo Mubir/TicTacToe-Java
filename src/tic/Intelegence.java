@@ -19,10 +19,10 @@ public class Intelegence {
 		return a < b ? a : b;
 	}
 
-	boolean noMove() {
+	boolean noMove(String [][] board){
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				if (TicTacToeMain.board[i][j].equals(" - ")) {
+				if (board[i][j].equals(" - ")) {
 					return true;
 				}
 			}
@@ -78,16 +78,16 @@ public class Intelegence {
 
 		if (result == -10)
 			return -10;
-		if (noMove() == false)
+		if (noMove(board) == false)
 			return 0;
 		if (turn) {
 			int res = -1000;
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					if (TicTacToeMain.board[i][j].equals(" - ")) {
-						TicTacToeMain.board[i][j] = gameInfo.couputerTurn;
+					if (board[i][j].equals(" - ")) {
+						board[i][j] = gameInfo.couputerTurn;
 						res = max(res, minMax(!turn,board));
-						TicTacToeMain.board[i][j] = " - ";
+						board[i][j] = " - ";
 					}
 				}
 			}
@@ -97,10 +97,10 @@ public class Intelegence {
 			int res = 1000;
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					if (TicTacToeMain.board[i][j].equals(" - ")) {
-						TicTacToeMain.board[i][j] = gameInfo.playerTurn;
+					if (board[i][j].equals(" - ")) {
+						board[i][j] = gameInfo.playerTurn;
 						res = min(res, minMax(!turn,board));
-						TicTacToeMain.board[i][j] = " - ";
+						board[i][j] = " - ";
 					}
 				}
 			}
