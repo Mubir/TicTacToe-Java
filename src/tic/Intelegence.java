@@ -30,48 +30,48 @@ public class Intelegence {
 		return false;
 	}
 
-	public int winloss() {
+	public int winloss(String [][] board) {
 
 		for (int i = 0; i < 3; i++) {
-			if (TicTacToeMain.board[i][0] != " - " && TicTacToeMain.board[i][0].equals(TicTacToeMain.board[i][1])
-					&& TicTacToeMain.board[i][2].equals(TicTacToeMain.board[i][1])) {
-				if (TicTacToeMain.board[i][0].equals(gameInfo.couputerTurn))
+			if (board[i][0] != " - " && board[i][0].equals(board[i][1])
+					&& board[i][2].equals(board[i][1])) {
+				if (board[i][0].equals(gameInfo.couputerTurn))
 					return 10;
-				else if (TicTacToeMain.board[i][0].equals(gameInfo.playerTurn))
+				else if (board[i][0].equals(gameInfo.playerTurn))
 					return -10;
 			}
 		}
 
 		for (int i = 0; i < 3; i++) {
-			if (!TicTacToeMain.board[0][i].equals(" - ") && TicTacToeMain.board[0][i].equals(TicTacToeMain.board[1][i])
-					&& TicTacToeMain.board[2][i].equals(TicTacToeMain.board[1][i])) {
-				if (TicTacToeMain.board[0][i].equals(gameInfo.couputerTurn))
+			if (!board[0][i].equals(" - ") && board[0][i].equals(board[1][i])
+					&& board[2][i].equals(board[1][i])) {
+				if (board[0][i].equals(gameInfo.couputerTurn))
 					return 10;
-				else if (TicTacToeMain.board[0][i].equals(gameInfo.playerTurn))
+				else if (board[0][i].equals(gameInfo.playerTurn))
 					return -10;
 			}
 		}
 
-		if (!TicTacToeMain.board[0][0].equals(" - ") && TicTacToeMain.board[0][0].equals(TicTacToeMain.board[1][1])
-				&& TicTacToeMain.board[2][2].equals(TicTacToeMain.board[1][1])) {
-			if (TicTacToeMain.board[0][0].equals(gameInfo.couputerTurn))
+		if (!board[0][0].equals(" - ") && board[0][0].equals(board[1][1])
+				&& board[2][2].equals(board[1][1])) {
+			if (board[0][0].equals(gameInfo.couputerTurn))
 				return 10;
-			else if (TicTacToeMain.board[0][0].equals(gameInfo.playerTurn))
+			else if (board[0][0].equals(gameInfo.playerTurn))
 				return -10;
 		}
 
-		if (!TicTacToeMain.board[0][2].equals(" - ") && TicTacToeMain.board[0][2].equals(TicTacToeMain.board[1][1])
-				&& TicTacToeMain.board[2][0].equals(TicTacToeMain.board[1][1])) {
-			if (TicTacToeMain.board[0][2].equals(gameInfo.couputerTurn))
+		if (!board[0][2].equals(" - ") && board[0][2].equals(board[1][1])
+				&& board[2][0].equals(board[1][1])) {
+			if (board[0][2].equals(gameInfo.couputerTurn))
 				return 10;
-			else if (TicTacToeMain.board[0][2].equals(gameInfo.playerTurn))
+			else if (board[0][2].equals(gameInfo.playerTurn))
 				return -10;
 		}
 		return 0;
 	}
 
-	public int minMax(boolean turn) {
-		int result = winloss();
+	public int minMax(boolean turn,String [][] board) {
+		int result = winloss(board);
 
 		if (result == 10)
 			return 10;
@@ -86,7 +86,7 @@ public class Intelegence {
 				for (int j = 0; j < 3; j++) {
 					if (TicTacToeMain.board[i][j].equals(" - ")) {
 						TicTacToeMain.board[i][j] = gameInfo.couputerTurn;
-						res = max(res, minMax(!turn));
+						res = max(res, minMax(!turn,board));
 						TicTacToeMain.board[i][j] = " - ";
 					}
 				}
@@ -99,7 +99,7 @@ public class Intelegence {
 				for (int j = 0; j < 3; j++) {
 					if (TicTacToeMain.board[i][j].equals(" - ")) {
 						TicTacToeMain.board[i][j] = gameInfo.playerTurn;
-						res = min(res, minMax(!turn));
+						res = min(res, minMax(!turn,board));
 						TicTacToeMain.board[i][j] = " - ";
 					}
 				}
